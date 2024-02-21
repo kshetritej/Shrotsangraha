@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm"
 import EnvEnvironment from "./env.config"
-import { User } from "../entities/user.entity";
+
 
 const AppDataSource = new DataSource({
     type: EnvEnvironment.DB_TYPE as 'postgres',

@@ -1,12 +1,11 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn, Timestamp } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne } from "typeorm";
 import { User } from "./user.entity";
 import ResourceProvider from "./resourceProvider.entity";
 import ResourceField from "./resourceField.entity";
+import CommonEntity from "./common.entity";
 
 @Entity()
-export default class Resource{
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+export default class Resource extends CommonEntity{
 
     @Column()
     resourceTitle: string;
@@ -18,14 +17,12 @@ export default class Resource{
     resourceDesc: string;
 
     @Column()
-    createdAt: "timestamp";
+    resourceType: string;
+
 
     @ManyToOne(()=>ResourceProvider,(provider)=>provider.id)
     @JoinColumn()
     resourceProvider: ResourceProvider;
-
-    @Column()
-    resourceType: string;
 
     @ManyToMany(()=>ResourceField,(field)=>field.name)
     @JoinColumn()

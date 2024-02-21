@@ -1,13 +1,10 @@
-import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, Timestamp } from "typeorm";
+import {Column, Entity, JoinTable, ManyToMany} from "typeorm";
 import Resource from "./resource.entity";
+import CommonEntity from "./common.entity";
 
 
 @Entity({name:"user"})
-export class User extends BaseEntity{
-    @PrimaryGeneratedColumn("uuid",{
-        name:"user_id"
-    })
-    id: string;
+export class User extends CommonEntity{
 
     @Column({
         unique: true,
@@ -15,6 +12,11 @@ export class User extends BaseEntity{
         nullable:false,
     })
     username: string;
+
+    @Column({unique:true,
+        nullable:false,
+    })
+    email:string;
 
     @Column({
         name:"full_name",
@@ -25,15 +27,6 @@ export class User extends BaseEntity{
         nullable:false,
     })
     password: string;
-
-    @Column()
-    status: boolean;
-
-    @Column({
-        type:"timestamptz",
-        name:"created_at"
-    })
-    createdAt: Timestamp;
 
     @ManyToMany(()=>Resource, (resource)=>resource.uploadBy)
     @JoinTable()

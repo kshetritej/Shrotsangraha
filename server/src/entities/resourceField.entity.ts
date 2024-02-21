@@ -1,10 +1,9 @@
-import { Column, Entity, JoinColumn, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany} from "typeorm";
 import Resource from "./resource.entity";
+import CommonEntity from "./common.entity";
 
 @Entity()
-export default class ResourceField{
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+export default class ResourceField extends CommonEntity{
 
     @Column({
         unique:true,

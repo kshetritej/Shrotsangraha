@@ -1,18 +1,46 @@
 {
+  /*specified by tsoa */
   "compilerOptions": {
-    "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-    "experimentalDecorators": true,                   /* Enable experimental support for legacy experimental decorators. */
-    "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
-    /* Modules */
-    "module": "commonjs",                                /* Specify what module code is generated. */
-    "rootDir": "./src/",                                  /* Specify the root folder within your source files. */
-    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
-    "noEmitOnError": true,                            /* Disable emitting files if any type checking errors are reported. */
-    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    /* Basic Options */
+    "incremental": true,
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "build",
 
-    /* Type Checking */
-    "strict": true,                                      /* Enable all strict type-checking options. */
-    "strictPropertyInitialization": false,             /* Check for class properties that are declared but not set in the constructor. */
+    /* Strict Type-Checking Options */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": false,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+
+    /* Additional Checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Module Resolution Options */
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "esModuleInterop": true,
+
+    /* Experimental Options */
+    "experimentalDecorators": true,
+    // emitDecoratorMetadata is not needed by tsoa (unless you are using Custom Middlewares)
+    "emitDecoratorMetadata": true,
+
+    /* Advanced Options */
+    "forceConsistentCasingInFileNames": true,
+
+
+    /*other*/
+    "noEmitOnError": true,
+    "rootDir": "./src",
+   
+ 
   }
 }
