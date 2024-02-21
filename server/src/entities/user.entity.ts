@@ -1,8 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn, Timestamp } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, Timestamp } from "typeorm";
 
 
-@Entity()
-export class User{
+@Entity({name:"user"})
+export class User extends BaseEntity{
     @PrimaryGeneratedColumn("uuid",{
         name:"user_id"
     })
