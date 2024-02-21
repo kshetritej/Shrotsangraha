@@ -11,6 +11,7 @@ const AppDataSource = new DataSource({
     database: EnvEnvironment.DB_NAME,
     entities: [`${__dirname}/../entities/*.entity.ts`],
     synchronize: true,
+    // dropSchema:true,
 })
 
 export default AppDataSource;

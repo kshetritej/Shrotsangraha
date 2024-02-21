@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, Timestamp } from "typeorm";
+import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, Timestamp } from "typeorm";
+import Resource from "./resource.entity";
 
 
 @Entity({name:"user"})
@@ -33,4 +34,8 @@ export class User extends BaseEntity{
         name:"created_at"
     })
     createdAt: Timestamp;
+
+    @ManyToMany(()=>Resource, (resource)=>resource.uploadBy)
+    @JoinTable()
+    resource: Resource[]
 }
