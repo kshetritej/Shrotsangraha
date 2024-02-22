@@ -3,6 +3,7 @@ import AppDataSource from "./configs/db.config";
 import EnvEnvironment from "./configs/env.config";
 //@ts-ignore
 import {RegisterRoutes } from "../build/routes";
+import { errorHandler } from "./middlewares/errorHandler.middleware";
 
 const app = express();
 const swaggerUi = require('swagger-ui-express');
@@ -12,6 +13,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(express.json())
 RegisterRoutes(app)
+app.use(errorHandler);
 
 
 AppDataSource.initialize()

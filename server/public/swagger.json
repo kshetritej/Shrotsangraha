@@ -164,6 +164,21 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"loginData": {
+				"properties": {
+					"password": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"password",
+					"username"
+				],
+				"type": "object"
+			},
 			"ObjectLiteral": {
 				"description": "Interface of the simple literal object with any string keys.",
 				"properties": {},
@@ -211,7 +226,7 @@
 		"contact": {}
 	},
 	"paths": {
-		"/users/getUsers": {
+		"/getUsers": {
 			"get": {
 				"operationId": "GetUsers",
 				"responses": {
@@ -230,13 +245,13 @@
 					}
 				},
 				"tags": [
-					"User"
+					"User Route"
 				],
 				"security": [],
 				"parameters": []
 			}
 		},
-		"/users/getUsers/{username}": {
+		"/getUsers/{username}": {
 			"get": {
 				"operationId": "GetUser",
 				"responses": {
@@ -252,7 +267,7 @@
 					}
 				},
 				"tags": [
-					"User"
+					"User Route"
 				],
 				"security": [],
 				"parameters": [
@@ -267,7 +282,32 @@
 				]
 			}
 		},
-		"/users/user": {
+		"/login": {
+			"post": {
+				"operationId": "LoginUser",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"User Route"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/loginData"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/register": {
 			"post": {
 				"operationId": "RegisterUser",
 				"responses": {
@@ -283,7 +323,7 @@
 					}
 				},
 				"tags": [
-					"User"
+					"User Route"
 				],
 				"security": [],
 				"parameters": [],

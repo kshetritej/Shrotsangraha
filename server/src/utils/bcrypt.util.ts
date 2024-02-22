@@ -23,6 +23,7 @@ class bcryptUtil {
             return
         }
         console.log("login successfull")
+        return user;
     }
 }
 
