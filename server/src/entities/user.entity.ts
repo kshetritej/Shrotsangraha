@@ -25,6 +25,7 @@ export class User extends CommonEntity{
 
     @Column({
         nullable:false,
+        select:false,
     })
     password: string;
 

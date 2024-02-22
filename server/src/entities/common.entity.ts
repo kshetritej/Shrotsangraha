@@ -1,14 +1,14 @@
-import { BaseEntity, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, Timestamp } from "typeorm";
 
 @Entity()
 export default class CommonEntity extends BaseEntity{
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @CreateDateColumn({default:Date})
-    createdAt: Date;
+    @CreateDateColumn({default: Timestamp})
+    createdAt: string;
 
 
-    @DeleteDateColumn({default:Date})
-    deletedAt: Date;
+    @DeleteDateColumn({default:Timestamp})
+    deletedAt: string;
 }

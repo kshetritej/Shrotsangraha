@@ -9,6 +9,63 @@ import type { RequestHandler, Router } from 'express';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
+    "Resource": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"string","required":true},
+            "createdAt": {"dataType":"string","required":true},
+            "deletedAt": {"dataType":"string","required":true},
+            "resourceTitle": {"dataType":"string","required":true},
+            "resourceLink": {"dataType":"string","required":true},
+            "resourceDesc": {"dataType":"string","required":true},
+            "resourceType": {"dataType":"string","required":true},
+            "resourceProvider": {"ref":"ResourceProvider","required":true},
+            "field": {"dataType":"array","array":{"dataType":"refObject","ref":"ResourceField"},"required":true},
+            "uploadBy": {"ref":"User","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ResourceProvider": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"string","required":true},
+            "createdAt": {"dataType":"string","required":true},
+            "deletedAt": {"dataType":"string","required":true},
+            "name": {"dataType":"string","required":true},
+            "desc": {"dataType":"string","required":true},
+            "resource": {"ref":"Resource","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ResourceField": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"string","required":true},
+            "createdAt": {"dataType":"string","required":true},
+            "deletedAt": {"dataType":"string","required":true},
+            "name": {"dataType":"string","required":true},
+            "resource": {"dataType":"array","array":{"dataType":"refObject","ref":"Resource"},"required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "User": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"string","required":true},
+            "createdAt": {"dataType":"string","required":true},
+            "deletedAt": {"dataType":"string","required":true},
+            "username": {"dataType":"string","required":true},
+            "email": {"dataType":"string","required":true},
+            "fullName": {"dataType":"string","required":true},
+            "password": {"dataType":"string","required":true},
+            "resource": {"dataType":"array","array":{"dataType":"refObject","ref":"Resource"},"required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ObjectLiteral": {
         "dataType": "refObject",
         "properties": {
@@ -36,11 +93,11 @@ export function RegisterRoutes(app: Router) {
     //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
-        app.get('/users/profile',
+        app.get('/users/getUsers',
             ...(fetchMiddlewares<RequestHandler>(UserController)),
-            ...(fetchMiddlewares<RequestHandler>(UserController.prototype.getJohn)),
+            ...(fetchMiddlewares<RequestHandler>(UserController.prototype.getUsers)),
 
-            function UserController_getJohn(request: any, response: any, next: any) {
+            function UserController_getUsers(request: any, response: any, next: any) {
             const args = {
             };
 
@@ -53,7 +110,32 @@ export function RegisterRoutes(app: Router) {
                 const controller = new UserController();
 
 
-              const promise = controller.getJohn.apply(controller, validatedArgs as any);
+              const promise = controller.getUsers.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/users/getUsers/:username',
+            ...(fetchMiddlewares<RequestHandler>(UserController)),
+            ...(fetchMiddlewares<RequestHandler>(UserController.prototype.getUser)),
+
+            function UserController_getUser(request: any, response: any, next: any) {
+            const args = {
+                    username: {"in":"path","name":"username","required":true,"dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new UserController();
+
+
+              const promise = controller.getUser.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

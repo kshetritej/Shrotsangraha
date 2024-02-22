@@ -1,11 +1,10 @@
-import bcrypt, { genSalt } from "bcrypt";
+import bcrypt from "bcrypt";
 import { User } from "../entities/user.entity";
 
 class bcryptUtil {
     async hashPassword(password: string): Promise<string> {
         try {
-            const salt = await genSalt(11);
-            const hash = await bcrypt.hash(password, salt);
+            const hash = await bcrypt.hash(password, 11);
             return hash;
 
         } catch (err) {

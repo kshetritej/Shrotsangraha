@@ -1,30 +1,35 @@
 import { registerUser } from "../@types/registerUser.type";
 import { User } from "../entities/user.entity"
-import bcryptUtil from "../utils/bcrypt.util";
+import bcrypt from "bcrypt";
+
 
 class UserService {
-    async registerNewUser(body:registerUser){
-        const user = await User.insert({
-            username: body.username,
-            email:body.email,
-            //@ts-ignore
-            password: bcryptUtil.hashPassword(body.password),
-            fullName: body.fullName,
-        })
-        return user;
+    async registerNewUser(body: registerUser) {
+        try {
+            const user = await User.insert({
+                username: body.username,
+                email: body.email,
+                password: await bcrypt.hash(body.password, 11),
+                fullName: body.fullName,
+            });
+            return user;
+        }
+        catch (error) {
+            console.log(`error while inserting data`, error)
+            throw new error;
+        }
     }
 
-    async getUsers(){
-        const data:User[] = await User.find()
+    async getUsers() {
+        const data: User[] = await User.find()
         return data;
     }
 
-    getJohn(){
-        return {
-            name: "john",
-            surname: "khan"
-        }
+    async getUser(username:string){
+        const user = await User.findOne({where:{username:username}});
+        return user;
     }
+
 }
 
 export default new UserService;
