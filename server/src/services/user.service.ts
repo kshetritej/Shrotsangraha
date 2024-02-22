@@ -1,9 +1,8 @@
-import { registerUser } from "src/@types/registerUser.type";
-import { User } from "src/entities/user.entity"
-import bcryptUtil from "src/utils/bcrypt.util";
+import { registerUser } from "../@types/registerUser.type";
+import { User } from "../entities/user.entity"
+import bcryptUtil from "../utils/bcrypt.util";
 
 class UserService {
-
     async registerNewUser(body:registerUser){
         const user = await User.insert({
             username: body.username,

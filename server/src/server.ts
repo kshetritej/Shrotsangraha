@@ -2,7 +2,7 @@ import express from "express";
 import AppDataSource from "./configs/db.config";
 import EnvEnvironment from "./configs/env.config";
 //@ts-ignore
-import RegisterRoutes from "../build/routes";
+import {RegisterRoutes } from "../build/routes";
 
 const app = express();
 const swaggerUi = require('swagger-ui-express');

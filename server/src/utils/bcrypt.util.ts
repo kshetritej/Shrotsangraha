@@ -1,5 +1,5 @@
 import bcrypt, { genSalt } from "bcrypt";
-import { User } from "src/entities/user.entity";
+import { User } from "../entities/user.entity";
 
 class bcryptUtil {
     async hashPassword(password: string): Promise<string> {

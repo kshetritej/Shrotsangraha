@@ -4,7 +4,7 @@ import {
   IsEmail,
   IsNotEmpty,
 } from 'class-validator';
-import { User } from 'src/entities/user.entity';
+import { User } from '../entities/user.entity';
 
 class registerValidation{
     @Length(3,12)
