@@ -1,4 +1,4 @@
-
+import plainToClass from "class-transformer"
 class RequestValidator {
   verify(classInstance){
         validate(classInstance,req.body).then(error =>{
