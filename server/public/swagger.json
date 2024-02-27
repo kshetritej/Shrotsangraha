@@ -1,0 +1,368 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Resource": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"deletedAt": {
+						"type": "string"
+					},
+					"resourceTitle": {
+						"type": "string"
+					},
+					"resourceLink": {
+						"type": "string"
+					},
+					"resourceDesc": {
+						"type": "string"
+					},
+					"resourceType": {
+						"type": "string"
+					},
+					"resourceProvider": {
+						"$ref": "#/components/schemas/ResourceProvider"
+					},
+					"field": {
+						"items": {
+							"$ref": "#/components/schemas/ResourceField"
+						},
+						"type": "array"
+					},
+					"uploadBy": {
+						"$ref": "#/components/schemas/User"
+					}
+				},
+				"required": [
+					"id",
+					"createdAt",
+					"deletedAt",
+					"resourceTitle",
+					"resourceLink",
+					"resourceDesc",
+					"resourceType",
+					"resourceProvider",
+					"field",
+					"uploadBy"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ResourceProvider": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"deletedAt": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"desc": {
+						"type": "string"
+					},
+					"resource": {
+						"$ref": "#/components/schemas/Resource"
+					}
+				},
+				"required": [
+					"id",
+					"createdAt",
+					"deletedAt",
+					"name",
+					"desc",
+					"resource"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ResourceField": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"deletedAt": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"resource": {
+						"items": {
+							"$ref": "#/components/schemas/Resource"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"createdAt",
+					"deletedAt",
+					"name",
+					"resource"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"User": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string"
+					},
+					"deletedAt": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"fullName": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"resource": {
+						"items": {
+							"$ref": "#/components/schemas/Resource"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"createdAt",
+					"deletedAt",
+					"username",
+					"email",
+					"fullName",
+					"password",
+					"resource"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"loginData": {
+				"properties": {
+					"password": {
+						"type": "string"
+					},
+					"username": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"password",
+					"username"
+				],
+				"type": "object"
+			},
+			"ObjectLiteral": {
+				"description": "Interface of the simple literal object with any string keys.",
+				"properties": {},
+				"type": "object",
+				"additionalProperties": {}
+			},
+			"InsertResult": {
+				"description": "Result object returned by InsertQueryBuilder execution.",
+				"properties": {
+					"identifiers": {
+						"items": {
+							"$ref": "#/components/schemas/ObjectLiteral"
+						},
+						"type": "array",
+						"description": "Contains inserted entity id.\nHas entity-like structure (not just column database name and values)."
+					},
+					"generatedMaps": {
+						"items": {
+							"$ref": "#/components/schemas/ObjectLiteral"
+						},
+						"type": "array",
+						"description": "Generated values returned by a database.\nHas entity-like structure (not just column database name and values)."
+					},
+					"raw": {
+						"description": "Raw SQL result returned by executed query."
+					}
+				},
+				"required": [
+					"identifiers",
+					"generatedMaps",
+					"raw"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "lms-server",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/getUsers": {
+			"get": {
+				"operationId": "GetUsers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/User"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Route"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/getUsers/{username}": {
+			"get": {
+				"operationId": "GetUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/User"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Route"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "username",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/login": {
+			"post": {
+				"operationId": "LoginUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"$ref": "#/components/schemas/User"
+										},
+										{
+											"properties": {
+												"message": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"message"
+											],
+											"type": "object"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Route"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/loginData"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/register": {
+			"post": {
+				"operationId": "RegisterUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/InsertResult"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User Route"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

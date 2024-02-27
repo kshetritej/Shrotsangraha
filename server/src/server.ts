@@ -1,12 +1,20 @@
 import express from "express";
-import userRouter from "./routes/user.route";
 import AppDataSource from "./configs/db.config";
-import { constrainedMemory } from "process";
 import EnvEnvironment from "./configs/env.config";
+//@ts-ignore
+import {RegisterRoutes } from "../build/routes";
+import { errorHandler } from "./middlewares/errorHandler.middleware";
 
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../public/swagger.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use(express.json())
-app.use(userRouter);
+RegisterRoutes(app)
+app.use(errorHandler);
+
 
 AppDataSource.initialize()
     .then(() => {
@@ -17,3 +25,5 @@ AppDataSource.initialize()
     .catch((err) => {
         console.error("Error during Data Source initialization", err)
     })
+
+
