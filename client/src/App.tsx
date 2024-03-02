@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useQuery } from "react-query";
+import axios from "axios";
+import { LoginCard } from "./components/LoginCard";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { isLoading, data, error } = useQuery("github/kshetritej", () =>
+    fetch("https://api.github.com/users/kshetritej").then((res) => res.json())
+  );
+
+  if (isLoading) return <>Loading ...</>;
+  if (error) return <>JSON.stringify(error)</>;
+  if (!data) return <>No data available.</>;
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <div className="flex p-4 flex-col items-center justify-center align-middle h-[100%]">
+        <h1 className="text-blue-500 text-2xl font-extrabold">{data.login}</h1>
+        <div className="flex gap-2 p-4">
+          <div className="p-2 text-green-500">
+            <h3>Followers: {data.followers} </h3>
+          </div>
+          <div className="p-2 text-green-500">
+            <h3>Following: {data.following} </h3>
+          </div>
+        </div>
 
-export default App
+      <LoginCard/>
+      </div>
+    </>
+  );
+}
+export default App;
