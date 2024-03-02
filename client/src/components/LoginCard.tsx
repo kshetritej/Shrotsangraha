@@ -1,4 +1,5 @@
 
+import { QueryClient, useMutation, useQueryClient } from "react-query"
 import { Button } from "./ui/button"
 import {
   Card,
@@ -10,8 +11,24 @@ import {
 } from "./ui/card"
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
+import axios from "axios"
 
 export function LoginCard() {
+
+  const queryClient = useQueryClient();
+
+const {mutate} = useMutation({ 
+  mutationKey: ["login"],
+  mutationFn: () =>{
+    return axios.post("http://localhost:8080/login",{username:"tej",password:"password12"})
+  },
+    onError: () => {return <>Login Error.. </>},
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["login"]})
+    }
+    
+  });
+  
   return (
     <Card className="w-[350px]">
       <CardHeader>
@@ -34,7 +51,7 @@ export function LoginCard() {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline">Cancel</Button>
-        <Button>Login</Button>
+        <Button onClick={()=> mutate()}>Login</Button>
       </CardFooter>
     </Card>
   )
