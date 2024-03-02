@@ -12,7 +12,7 @@ class EnvEnvironment {
     static DB_PORT=process.env.DB_PORT || 5432;
 
     //email configuratin
-    static EMAIL_USERNAME=process.env.EMAIL_USERNAME;
+    static EMAIL_USERNAME=process.env.EMAIL_USERNAME as EnvEnvironment;
     static EMAIL_PASSSWORD=process.env.MAIL_PASSSWORD;
 }
 
