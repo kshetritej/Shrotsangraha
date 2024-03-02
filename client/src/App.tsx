@@ -1,7 +1,5 @@
 import { useQuery } from "react-query";
-import axios from "axios";
-import { LoginCard } from "./components/LoginCard";
-
+import {LoginCard } from "@/components/LoginCard"
 function App() {
   const { isLoading, data, error } = useQuery("github/kshetritej", () =>
     fetch("https://api.github.com/users/kshetritej").then((res) => res.json())
